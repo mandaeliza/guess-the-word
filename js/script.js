@@ -30,47 +30,56 @@ const placeholder = function (word) {
   }
   wordProgress.innerText = placeholderLetters.join("");
 };
+
 placeholder(word);
 
-guessButton.addEventListener("click", function(e) {
-    e.preventDefault();
-    const guess = letterInput.value;
-    // console.log(guess);
-    letterInput.value="";
-    message.innerText="";
-    const validatedGuess = guessValidator(guess);
-    // console.log(validatedGuess);
-    makeGuess(validatedGuess);
-    
+guessButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  // Let's grab what was entered in the input
+  const guess = letterInput.value;
+  // Empty message paragraph
+  message.innerText = "";
+  // Let's make sure the guess is one letter
+  const validatedGuess = guessValidator(guess);
+  // console.log(validatedGuess);
+  makeGuess(validatedGuess);
+  //Empty input box
+  letterInput.value = "";
 });
 
+const guessValidator = function (input) {
+  const acceptedLetter = /[a-zA-Z]/;
+  if (input.length === 0) {
+    //is the input empty?
+    message.innerText = "Please enter your guess.";
+  } else if (input.length > 1) {
+    // did you type more than one letter?
+    message.innerText = "Please enter only one letter.";
+  } else if (input != input.match(acceptedLetter)) {
+    // are you sure this is a letter?
+    message.innerText = `"${input}" isn't a letter, try again.`;
+  } else {
+    message.innerHTML = `You guessed "${input.toUpperCase()}"!`;
+    // finally one letter!
+    return input.toUpperCase();
+  }
+};
 
-const guessValidator = function (guess) {
-    const acceptedLetter = /[a-zA-Z]/;
-    if (guess == "") {
-        message.innerText = "Please enter your guess.";
-        
-    }
-    else if (guess.length > 1) {
-        message.innerText = "Please enter only one letter.";
-    }
-    else if (guess != guess.match(acceptedLetter)){
-        message.innerText = `"${guess}" isn't a letter, try again.`;
-    }
-    else  {
-        message.innerHTML = `You guessed "${guess.toUpperCase()}"!`
-        
-        return guess.toUpperCase();
-    }
-    };
+const makeGuess = function (letter) {
+  if (guessedLetters.includes(letter)) {
+    message.innerText = `You already guessed that.`;
+  } else if (typeof letter !== "undefined") {
+    guessedLetters.push(letter);
+    console.log(guessedLetters);
+    lettersGuessed();
+  }
+};
 
-const makeGuess = function(letter) {
-    if (guessedLetters.includes(letter)) {
-        message.innerText = `You already guessed that.`
-    } else if (typeof letter !== 'undefined') {
-        guessedLetters.push(letter);
-        console.log(guessedLetters);
-    }};
-
-
-
+// function that shows guessed letters
+const lettersGuessed = function () {
+  guessedLettersElement.innerHTML = "";
+  for (let listItem of guessedLetters) {
+    document.createElement("li");
+    guessedLettersElement.append(listItem);
+  }
+};
