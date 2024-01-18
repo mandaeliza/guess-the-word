@@ -10,7 +10,7 @@ const wordProgress = document.querySelector(".word-in-progress");
 //remaining guesses paragraph
 const remainingGuessesElement = document.querySelector(".remaining");
 //span inside remaining guesses paragraph
-const remainingNumber = document.querySelector(".remaining span");
+let remainingNumber = document.querySelector(".remaining span");
 //empty paragraph where message appear
 const message = document.querySelector(".message");
 //hidden button for "play again"
@@ -19,7 +19,7 @@ const againButton = document.querySelector(".play-again");
 //test word
 let word = "magnolia";
 //guess Letters Array
-const guessedLetters = [];
+let guessedLetters = [];
 
 let remainingGuesses = 8;
 
@@ -157,4 +157,19 @@ const startOver = function () {
   remainingGuessesElement.classList.add("hide");
   guessedLettersElement.classList.add("hide");
   againButton.classList.remove("hide");
-}
+};
+
+// click event for play again button
+againButton.addEventListener("click", function (){
+    message.classList.remove("win");
+    message.innerText = "";
+    guessedLettersElement.innerText = "";
+    remainingGuesses =+ 8;
+    remainingNumber.innerText = remainingGuesses;
+    guessedLetters = [];
+    guessButton.classList.remove("hide");
+    remainingGuessesElement.classList.remove("hide");
+    guessedLettersElement.classList.remove("hide");
+    againButton.classList.add("hide");
+    getWord();
+})
