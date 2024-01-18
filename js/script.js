@@ -133,12 +133,12 @@ const countGuesses = function (guess) {
     remainingGuesses -= 1;
   }
   if (remainingGuesses === 0) {
-    message.innerText = `Game Over - no more guesses.`;
+    message.innerText = `Game Over. The word was <span class="highlight">${word}</span>.`;
     startOver();
   } else if (remainingGuesses === 1) {
-    remainingNumber.innerText = `ONLY 1`;
+    remainingNumber.innerText = `ONLY ${remainingGuesses} guess`;
   } else {
-    remainingNumber.innerText = `${remainingGuesses}`;
+    remainingNumber.innerText = `${remainingGuesses} guesses`;
   }
 };
 
@@ -162,14 +162,15 @@ const startOver = function () {
 // click event for play again button
 againButton.addEventListener("click", function (){
     message.classList.remove("win");
-    message.innerText = "";
-    guessedLettersElement.innerText = "";
-    remainingGuesses =+ 8;
-    remainingNumber.innerText = remainingGuesses;
     guessedLetters = [];
+    remainingGuesses = 8;
+    remainingNumber.innerText = `${remainingGuesses} guesses`;
+    guessedLettersElement.innerText = "";
+    message.innerText = "";
+    getWord();
+
     guessButton.classList.remove("hide");
     remainingGuessesElement.classList.remove("hide");
     guessedLettersElement.classList.remove("hide");
     againButton.classList.add("hide");
-    getWord();
 })
