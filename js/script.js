@@ -29,15 +29,14 @@ const getWord = async function () {
     "https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt"
   );
   const words = await wordRequest.text();
-//   console.log(words);
+  //   console.log(words);
   const wordArray = words.split("\n");
-//   console.log(wordArray);
+  //   console.log(wordArray);
   const randomIndex = Math.floor(Math.random() * wordArray.length);
-//   console.log(randomIndex);
+  //   console.log(randomIndex);
   word = wordArray[randomIndex].trim();
-  placeholder(word); 
+  placeholder(word);
 };
-
 
 //Write a Function to Add Placeholders for Letters
 const placeholder = function (word) {
@@ -104,8 +103,6 @@ const lettersGuessed = function () {
   }
 };
 
-
-
 // function to update the word in progress
 const wordProgressUpdate = function (guessedLetters) {
   const wordUpper = word.toUpperCase();
@@ -133,7 +130,7 @@ const countGuesses = function (guess) {
     remainingGuesses -= 1;
   }
   if (remainingGuesses === 0) {
-    message.innerText = `Game Over. The word was <span class="highlight">${word}</span>.`;
+    message.innerHTML = `Game Over. The word was <span class="highlight">${word}</span>.`;
     startOver();
   } else if (remainingGuesses === 1) {
     remainingNumber.innerText = `ONLY ${remainingGuesses} guess`;
@@ -160,17 +157,17 @@ const startOver = function () {
 };
 
 // click event for play again button
-againButton.addEventListener("click", function (){
-    message.classList.remove("win");
-    guessedLetters = [];
-    remainingGuesses = 8;
-    remainingNumber.innerText = `${remainingGuesses} guesses`;
-    guessedLettersElement.innerText = "";
-    message.innerText = "";
-    getWord();
+againButton.addEventListener("click", function () {
+  message.classList.remove("win");
+  guessedLetters = [];
+  remainingGuesses = 8;
+  remainingNumber.innerText = `${remainingGuesses} guesses`;
+  guessedLettersElement.innerText = "";
+  message.innerText = "";
+  getWord();
 
-    guessButton.classList.remove("hide");
-    remainingGuessesElement.classList.remove("hide");
-    guessedLettersElement.classList.remove("hide");
-    againButton.classList.add("hide");
-})
+  guessButton.classList.remove("hide");
+  remainingGuessesElement.classList.remove("hide");
+  guessedLettersElement.classList.remove("hide");
+  againButton.classList.add("hide");
+});
