@@ -73,6 +73,7 @@ const makeGuess = function (letter) {
     // console.log(guessedLetters);
     lettersGuessed();
     wordProgressUpdate(guessedLetters);
+
   }
 };
 
@@ -87,20 +88,25 @@ const lettersGuessed = function () {
 
 // function to update the word in progress
 const wordProgressUpdate = function (guessedLetters) {
-    const wordUpper = word.toUpperCase();
-    const wordArray = wordUpper.split("");
-    // console.log(wordArray);
-    const updateWord = [];
-    for (letter of wordArray) {
-        if (guessedLetters.includes(letter)) {
-            updateWord.push(letter.toUpperCase());
-        } else {
-            updateWord.push("●");
-        }
-    wordProgress.innerText = updateWord.join("");   
+  const wordUpper = word.toUpperCase();
+  const wordArray = wordUpper.split("");
+  console.log(wordArray);
+  const updateWord = [];
+  for (letter of wordArray) {
+    if (guessedLetters.includes(letter)) {
+      updateWord.push(letter);
+    } else {
+      updateWord.push("●");
     }
-    
-    // console.log(updateWord);
-    };
+    wordProgress.innerText = updateWord.join("");
+    didPlayerWin();
+  }
+  console.log(updateWord); 
+};
 
-
+const didPlayerWin = function() {
+    if (word.toUpperCase() === wordProgress.innerText) {
+        message.classList.add("win");
+        message.innerHTML = `<p class="highlight">You guessed the word! Congrats!</p>`;
+    }
+};
