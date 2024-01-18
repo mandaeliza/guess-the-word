@@ -104,6 +104,8 @@ const lettersGuessed = function () {
   }
 };
 
+
+
 // function to update the word in progress
 const wordProgressUpdate = function (guessedLetters) {
   const wordUpper = word.toUpperCase();
@@ -127,11 +129,12 @@ const countGuesses = function (guess) {
   if (word.toUpperCase().includes(guess)) {
     message.innerText = `The word contains the letter "${guess}"!`;
   } else {
-    message.innerText = `The word does not contain the letter "${guess}".`;
+    // message.innerText = `The word does not contain the letter "${guess}".`;
     remainingGuesses -= 1;
   }
   if (remainingGuesses === 0) {
-    remainingGuessesElement.innerText = `Game Over - no more guesses.`;
+    message.innerText = `Game Over - no more guesses.`;
+    startOver();
   } else if (remainingGuesses === 1) {
     remainingNumber.innerText = `ONLY 1`;
   } else {
@@ -144,5 +147,14 @@ const didPlayerWin = function () {
   if (word.toUpperCase() === wordProgress.innerText) {
     message.classList.add("win");
     message.innerHTML = `<p class="highlight">You guessed the word! Congrats!</p>`;
+    startOver();
   }
 };
+
+// function to show and hide elements
+const startOver = function () {
+  guessButton.classList.add("hide");
+  remainingGuessesElement.classList.add("hide");
+  guessedLettersElement.classList.add("hide");
+  againButton.classList.remove("hide");
+}
