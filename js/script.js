@@ -19,7 +19,7 @@ const againButton = document.querySelector(".play-again");
 //test word
 const word = "magnolia";
 //guess Letters Array
-let guessedLetters = [];
+const guessedLetters = [];
 
 //Write a Function to Add Placeholders for Letters
 const placeholder = function (word) {
@@ -70,8 +70,9 @@ const makeGuess = function (letter) {
     message.innerText = `You already guessed that.`;
   } else if (typeof letter !== "undefined") {
     guessedLetters.push(letter);
-    console.log(guessedLetters);
+    // console.log(guessedLetters);
     lettersGuessed();
+    wordProgressUpdate(guessedLetters);
   }
 };
 
@@ -83,3 +84,23 @@ const lettersGuessed = function () {
     guessedLettersElement.append(listItem);
   }
 };
+
+// function to update the word in progress
+const wordProgressUpdate = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    // console.log(wordArray);
+    const updateWord = [];
+    for (letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+            updateWord.push(letter.toUpperCase());
+        } else {
+            updateWord.push("●");
+        }
+    wordProgress.innerText = updateWord.join("");   
+    }
+    
+    // console.log(updateWord);
+    };
+
+
